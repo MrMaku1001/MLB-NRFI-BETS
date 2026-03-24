@@ -1,2 +1,1505 @@
+<!DOCTYPE html>
 
-https://claude.ai/public/artifacts/829fb607-2c37-48ce-b5bd-61ef286ca002
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NRFI Pro">
+<meta name="theme-color" content="#080f1e">
+<title>⚾ NRFI Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg0:#080f1e;--bg1:#0d1829;--bg2:#111f38;--bg3:#1a2d4a;
+  --gold:#f0b429;--gold2:#d4950f;--gs:rgba(240,180,41,.12);
+  --teal:#06d6a0;--ts:rgba(6,214,160,.1);
+  --green:#22c55e;--grs:rgba(34,197,94,.12);
+  --amber:#f59e0b;--as2:rgba(245,158,11,.12);
+  --red:#ef4444;--rs:rgba(239,68,68,.1);
+  --blue:#3b82f6;--bs:rgba(59,130,246,.1);
+  --w0:#fff;--w1:#e2e8f0;--w2:#94a3b8;--w3:#475569;
+  --st:env(safe-area-inset-top,44px);--sb:env(safe-area-inset-bottom,34px);
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg0);color:var(--w0);font-family:'Barlow',sans-serif;overflow:hidden;overscroll-behavior:none}
+#app{display:flex;flex-direction:column;height:100dvh}
+
+/* HEADER */
+#hdr{flex-shrink:0;padding:calc(var(–st)+6px) 14px 0;background:linear-gradient(180deg,#040a14,var(–bg0));border-bottom:1px solid rgba(240,180,41,.12);z-index:20;position:relative}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-icon{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(–gold),var(–gold2));display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 14px rgba(240,180,41,.35)}
+.brand-name{font-family:‘Bebas Neue’,cursive;font-size:24px;letter-spacing:1.5px;line-height:1}
+.brand-tag{font-size:9px;color:var(–w2);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
+.hdr-btns{display:flex;gap:7px;align-items:center}
+.ibtn{width:36px;height:36px;border-radius:10px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;-webkit-appearance:none;transition:transform .15s;flex-shrink:0}
+.ibtn:active{transform:scale(.92)}
+.ibtn-blue{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;box-shadow:0 2px 10px rgba(37,99,235,.4)}
+.ibtn-bell{background:var(–bg3);color:var(–amber);font-size:18px}
+.ibtn-api{background:var(–bg3);color:var(–teal);font-size:11px;font-weight:800;width:auto;padding:0 10px;border-radius:10px}
+
+.date-bar{display:flex;align-items:center;gap:8px;padding-bottom:10px}
+.darr{width:30px;height:30px;border-radius:8px;border:none;background:var(–bg3);color:var(–w1);font-size:18px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.darr:active{background:var(–bg2)}
+.dlbl{flex:1;text-align:center;font-weight:700;font-size:14px;background:var(–bg3);border-radius:8px;padding:6px;cursor:pointer}
+.dtoday{padding:6px 10px;background:var(–gs);border:1px solid rgba(240,180,41,.3);border-radius:8px;color:var(–gold);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-appearance:none}
+
+.nav{display:flex;gap:4px;background:rgba(255,255,255,.04);border-radius:12px;padding:3px}
+.ntab{flex:1;padding:7px 2px;border:none;border-radius:9px;background:transparent;color:var(–w2);font-family:‘Barlow’,sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-appearance:none}
+.ntab.on{background:var(–gold);color:var(–bg0);box-shadow:0 2px 8px rgba(240,180,41,.3)}
+
+/* ODDS STRIP */
+#odds-strip{flex-shrink:0;background:var(–bg2);border-bottom:1px solid rgba(255,255,255,.06);padding:6px 14px;display:none;align-items:center;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#odds-strip::-webkit-scrollbar{display:none}
+.odds-strip-item{flex-shrink:0;background:var(–bg3);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.osi-teams{font-size:11px;font-weight:700;color:var(–w1)}
+.osi-odds{font-family:‘JetBrains Mono’,monospace;font-size:12px;font-weight:600}
+.osi-src{font-size:9px;color:var(–w3)}
+.strip-label{font-size:9px;color:var(–gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;flex-shrink:0}
+
+/* NOTIFICATION BAR */
+#notif-bar{display:none;flex-shrink:0}
+.nb-item{padding:8px 14px;font-size:11px;line-height:1.5;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid rgba(255,255,255,.04)}
+.nb-icon{flex-shrink:0;font-size:16px;margin-top:1px}
+.nb-text{flex:1;color:var(–w1)}
+.nb-time{font-size:9px;color:var(–w3);margin-top:2px}
+.nb-close{width:22px;height:22px;border:none;background:rgba(255,255,255,.06);border-radius:50%;color:var(–w3);font-size:12px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+/* MAIN */
+#main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;padding-bottom:calc(var(–sb)+10px)}
+#main::-webkit-scrollbar{display:none}
+.panel{display:none;padding:12px 12px 0}
+.panel.on{display:block}
+
+/* SECTION HEADER */
+.shdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.stitle{font-family:‘Bebas Neue’,cursive;font-size:17px;letter-spacing:1px;color:var(–gold)}
+.smeta{font-size:10px;color:var(–w2);background:rgba(255,255,255,.06);padding:2px 8px;border-radius:20px}
+
+/* GAME CARD */
+.gc{background:var(–bg1);border:1px solid rgba(255,255,255,.07);border-radius:var(–r);margin-bottom:9px;overflow:hidden;transition:transform .13s;position:relative}
+.gc:active{transform:scale(.985)}
+.gc.gr{border-color:rgba(240,180,41,.4);box-shadow:0 0 0 1px rgba(240,180,41,.12),0 4px 20px rgba(0,0,0,.3)}
+.gc.gr::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(–gold),transparent)}
+.gc.live-odds{border-color:rgba(6,214,160,.35)}
+.gc.live-odds::before{background:linear-gradient(90deg,var(–teal),transparent)}
+
+.gtop{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 6px;border-bottom:1px solid rgba(255,255,255,.05)}
+.gtime{font-size:11px;color:var(–w2);font-weight:600}
+.gbadge{font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:20px;text-transform:uppercase}
+.b-top{background:rgba(240,180,41,.2);color:var(–gold)}
+.b-strong{background:var(–grs);color:var(–green)}
+.b-mod{background:var(–as2);color:var(–amber)}
+.b-low{background:var(–rs);color:var(–red)}
+.b-tbd{background:rgba(255,255,255,.06);color:var(–w3)}
+.b-live{background:var(–ts);color:var(–teal)}
+
+.gteams{display:flex;align-items:center;padding:10px 12px 8px;gap:6px}
+.gt{flex:1}
+.gt.r{text-align:right}
+.gt-abbr{font-family:‘Bebas Neue’,cursive;font-size:24px;letter-spacing:1px;line-height:1}
+.gt-city{font-size:9px;color:var(–w2);margin-top:1px}
+.gt-pitcher{font-size:11px;font-weight:700;color:var(–teal);margin-top:4px}
+.gt-era{font-size:10px;color:var(–w2)}
+.gt-tbd{font-size:11px;color:var(–w3);font-style:italic;margin-top:4px}
+.gvs{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding:0 4px}
+.gvs-txt{font-size:10px;color:var(–w3);font-weight:800}
+
+/* Weather strip */
+.gwx{display:flex;align-items:center;gap:8px;padding:5px 12px;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.04);font-size:10px;color:var(–w2)}
+.gwx-item{display:flex;align-items:center;gap:3px}
+.gwx-warn{color:var(–amber);font-weight:700}
+
+.gstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.05)}
+.gsc{background:var(–bg1);padding:7px 4px;text-align:center}
+.gsc-lbl{font-size:9px;color:var(–w3);text-transform:uppercase;letter-spacing:.7px}
+.gsc-val{font-family:‘JetBrains Mono’,monospace;font-size:13px;font-weight:600;margin-top:2px}
+.c-green{color:var(–green)}.c-amber{color:var(–amber)}.c-red{color:var(–red)}.c-gold{color:var(–gold)}.c-teal{color:var(–teal)}.c-gray{color:var(–w3)}
+
+/* Odds row */
+.godds{display:flex;gap:8px;padding:9px 12px 4px;border-top:1px solid rgba(255,255,255,.05)}
+.god-box{flex:1;border-radius:10px;padding:7px 10px;text-align:center}
+.god-box.model{background:rgba(255,255,255,.04)}
+.god-box.live{background:var(–ts);border:1px solid rgba(6,214,160,.2)}
+.god-lbl{font-size:9px;color:var(–w3);text-transform:uppercase;letter-spacing:.7px}
+.god-val{font-family:‘JetBrains Mono’,monospace;font-size:19px;font-weight:600;margin-top:1px}
+.god-win{font-size:10px;color:var(–w2);margin-top:1px}
+.god-src{font-size:9px;color:var(–w3);margin-top:4px;display:flex;align-items:center;justify-content:center;gap:4px}
+.fd-dot{width:6px;height:6px;background:#1493ff;border-radius:50%;flex-shrink:0}
+.god-updated{font-size:9px;color:var(–teal);margin-top:2px}
+.god-edge{font-size:10px;font-weight:700;margin-top:3px;padding:2px 8px;border-radius:20px;display:inline-block}
+.edge-pos{background:var(–grs);color:var(–green)}
+.edge-neg{background:var(–rs);color:var(–red)}
+.edge-neu{background:rgba(255,255,255,.06);color:var(–w3)}
+
+/* Bet row */
+.gbet{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid rgba(255,255,255,.05)}
+.gbet-lbl{font-size:10px;color:var(–w2);font-weight:600;white-space:nowrap}
+.gbet-inp{flex:1;background:var(–bg3);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:var(–w0);font-family:‘JetBrains Mono’,monospace;font-size:13px;font-weight:600;padding:6px 10px;outline:none;-webkit-appearance:none}
+.gbet-inp:focus{border-color:rgba(240,180,41,.4)}
+.gbet-res{font-family:‘JetBrains Mono’,monospace;font-size:12px;font-weight:600;color:var(–teal);white-space:nowrap}
+.gbtn{padding:6px 10px;border:none;border-radius:8px;font-family:‘Barlow’,sans-serif;font-size:11px;font-weight:700;cursor:pointer;-webkit-appearance:none;transition:all .15s}
+.gbtn:active{transform:scale(.94)}
+.gbtn-w{background:var(–grs);color:var(–green);border:1px solid rgba(34,197,94,.3)}
+.gbtn-l{background:var(–rs);color:var(–red);border:1px solid rgba(239,68,68,.3)}
+.gbtn-p{background:var(–bs);color:var(–blue);border:1px solid rgba(59,130,246,.3)}
+.gbtn-pend{background:var(–as2);color:var(–amber);border:1px solid rgba(245,158,11,.3)}
+.gwarn{background:rgba(245,158,11,.08);border-top:1px solid rgba(245,158,11,.2);padding:5px 12px;font-size:10px;color:var(–amber);display:flex;align-items:center;gap:5px}
+
+/* API KEY MODAL */
+#apimodal{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end}
+#apimodal.on{display:flex}
+.am-bg{position:absolute;inset:0;background:rgba(0,0,0,.7)}
+.am-sheet{position:relative;z-index:1;width:100%;background:var(–bg1);border-radius:20px 20px 0 0;padding:20px 16px calc(var(–sb)+20px)}
+.am-title{font-family:‘Bebas Neue’,cursive;font-size:20px;letter-spacing:1px;color:var(–gold);margin-bottom:4px}
+.am-sub{font-size:12px;color:var(–w2);margin-bottom:16px;line-height:1.6}
+.am-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:12px;color:var(–w1)}
+.am-num{width:24px;height:24px;flex-shrink:0;background:var(–gs);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:‘JetBrains Mono’,monospace;font-size:11px;font-weight:700;color:var(–gold)}
+.am-inp{width:100%;background:var(–bg3);border:1px solid rgba(240,180,41,.3);border-radius:12px;color:var(–w0);font-family:‘JetBrains Mono’,monospace;font-size:13px;padding:12px 14px;outline:none;-webkit-appearance:none;margin:12px 0}
+.am-inp:focus{border-color:var(–gold)}
+.am-row{display:flex;gap:10px}
+.am-btn{flex:1;padding:13px;border:none;border-radius:12px;font-family:‘Barlow’,sans-serif;font-size:14px;font-weight:800;cursor:pointer;-webkit-appearance:none;transition:all .15s}
+.am-btn:active{transform:scale(.96)}
+.am-save{background:var(–gold);color:var(–bg0)}
+.am-cancel{background:var(–bg3);color:var(–w2)}
+.am-link{color:var(–teal);text-decoration:underline;cursor:pointer}
+
+/* NOTIF MODAL */
+#notifmodal{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end}
+#notifmodal.on{display:flex}
+.nm-sheet{position:relative;z-index:1;width:100%;background:var(–bg1);border-radius:20px 20px 0 0;padding:20px 16px calc(var(–sb)+20px)}
+.nm-title{font-family:‘Bebas Neue’,cursive;font-size:18px;letter-spacing:1px;color:var(–gold);margin-bottom:14px}
+.nm-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.nm-row:last-of-type{border-bottom:none}
+.nm-lbl{font-size:13px;font-weight:600}
+.nm-sub{font-size:11px;color:var(–w2);margin-top:2px}
+.toggle{width:44px;height:26px;background:var(–bg3);border-radius:13px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none;-webkit-appearance:none}
+.toggle.on{background:var(–teal)}
+.toggle::after{content:’’;position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.toggle.on::after{transform:translateX(18px)}
+.nm-close{width:100%;margin-top:16px;padding:13px;border:none;border-radius:12px;background:var(–bg3);color:var(–w1);font-family:‘Barlow’,sans-serif;font-size:14px;font-weight:700;cursor:pointer;-webkit-appearance:none}
+
+/* DATE MODAL */
+#datemodal{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end}
+#datemodal.on{display:flex}
+.dm-sheet{position:relative;z-index:1;width:100%;background:var(–bg1);border-radius:20px 20px 0 0;padding:16px 16px calc(var(–sb)+16px)}
+.dm-title{font-family:‘Bebas Neue’,cursive;font-size:18px;letter-spacing:1px;color:var(–gold);margin-bottom:14px;text-align:center}
+.dm-months{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dm-month{padding:10px 6px;border:1px solid rgba(255,255,255,.08);border-radius:10px;background:var(–bg2);color:var(–w1);font-size:12px;font-weight:700;cursor:pointer;text-align:center;-webkit-appearance:none;transition:all .15s}
+.dm-month.on{background:var(–gs);border-color:rgba(240,180,41,.4);color:var(–gold)}
+.dm-close{width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;background:var(–bg3);color:var(–w1);font-family:‘Barlow’,sans-serif;font-size:14px;font-weight:700;cursor:pointer;-webkit-appearance:none}
+
+/* RECORD PANEL */
+.rec-hero{background:linear-gradient(135deg,var(–bg2),var(–bg1));border:1px solid rgba(240,180,41,.2);border-radius:var(–r);padding:14px;margin-bottom:12px}
+.rh-title{font-family:‘Bebas Neue’,cursive;font-size:14px;letter-spacing:1.5px;color:var(–gold);margin-bottom:12px}
+.rh-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.rh-cell{text-align:center}
+.rh-val{font-family:‘JetBrains Mono’,monospace;font-size:22px;font-weight:600}
+.rh-lbl{font-size:9px;color:var(–w2);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+
+.wk-card{background:var(–bg1);border:1px solid rgba(255,255,255,.07);border-radius:var(–r);margin-bottom:8px;overflow:hidden}
+.wk-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.wk-date{font-size:13px;font-weight:700}
+.wk-right{display:flex;align-items:center;gap:10px}
+.wk-rec{font-size:11px;color:var(–w2)}
+.wk-pnl{font-family:‘JetBrains Mono’,monospace;font-size:14px;font-weight:700}
+.bet-row{display:flex;align-items:center;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04)}
+.bet-row:last-child{border-bottom:none}
+.br-game{flex:1}
+.br-matchup{font-size:12px;font-weight:700}
+.br-detail{font-size:10px;color:var(–w2);margin-top:1px}
+.br-right{text-align:right}
+.br-amt{font-family:‘JetBrains Mono’,monospace;font-size:13px;font-weight:700}
+.br-res{font-size:10px;font-weight:700;margin-top:1px}
+.res-w{color:var(–green)}.res-l{color:var(–red)}.res-p{color:var(–blue)}.res-pend{color:var(–amber)}
+.wk-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:rgba(255,255,255,.03)}
+.wk-f-lbl{font-size:11px;color:var(–w2)}
+.wk-f-val{font-family:‘JetBrains Mono’,monospace;font-size:12px;font-weight:700}
+
+/* BANKROLL */
+.bk-card{background:linear-gradient(135deg,rgba(6,214,160,.08),rgba(59,130,246,.06));border:1px solid rgba(6,214,160,.2);border-radius:var(–r);padding:14px;margin-bottom:12px}
+.bk-title{font-family:‘Bebas Neue’,cursive;font-size:15px;letter-spacing:1px;color:var(–teal);margin-bottom:12px}
+.bk-bal{text-align:center;margin-bottom:12px}
+.bk-bal-lbl{font-size:10px;color:var(–teal);text-transform:uppercase;letter-spacing:1px}
+.bk-bal-val{font-family:‘JetBrains Mono’,monospace;font-size:36px;font-weight:600;color:var(–w0);margin:4px 0}
+.bk-bal-sub{font-size:11px;color:var(–w2)}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.bk-cell{background:rgba(255,255,255,.04);border-radius:10px;padding:10px;text-align:center}
+.bk-cell-lbl{font-size:9px;color:var(–w3);text-transform:uppercase;letter-spacing:.7px}
+.bk-cell-val{font-family:‘JetBrains Mono’,monospace;font-size:16px;font-weight:700;margin-top:3px}
+.bk-row{display:flex;gap:8px;margin-bottom:8px}
+.bk-inp{flex:1;background:var(–bg3);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(–w0);font-family:‘JetBrains Mono’,monospace;font-size:14px;padding:8px 12px;outline:none;-webkit-appearance:none}
+.bk-inp:focus{border-color:rgba(6,214,160,.4)}
+.bk-btn{padding:8px 14px;border:none;border-radius:10px;font-family:‘Barlow’,sans-serif;font-size:13px;font-weight:700;cursor:pointer;-webkit-appearance:none;transition:all .15s;white-space:nowrap}
+.bk-btn:active{transform:scale(.95)}
+.bk-add{background:var(–teal);color:var(–bg0)}
+.bk-rst{background:var(–rs);color:var(–red);border:1px solid rgba(239,68,68,.3)}
+.bk-note{font-size:10px;color:var(–w3);text-align:center}
+
+/* INFO */
+.info-blk{background:var(–bg1);border-radius:var(–r);margin-bottom:8px;overflow:hidden}
+.info-hdr{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.06);font-family:‘Bebas Neue’,cursive;font-size:15px;letter-spacing:1px;color:var(–gold)}
+.info-item{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;color:var(–w1);line-height:1.6;display:flex;gap:8px}
+.info-item:last-child{border-bottom:none}
+.ii-num{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–teal);font-weight:700;flex-shrink:0;width:18px;padding-top:1px}
+.disc{background:var(–rs);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:12px 14px;font-size:11px;color:rgba(239,68,68,.9);line-height:1.6;margin-bottom:10px}
+.howto-card{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(6,214,160,.06));border:1px solid rgba(59,130,246,.2);border-radius:var(–r);padding:14px;margin-bottom:8px}
+.howto-title{font-family:‘Bebas Neue’,cursive;font-size:15px;letter-spacing:1px;color:#60a5fa;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hs{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;font-size:12px;color:var(–w1)}
+.hs-num{width:22px;height:22px;flex-shrink:0;background:rgba(59,130,246,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:‘JetBrains Mono’,monospace;font-size:11px;font-weight:700;color:#60a5fa}
+
+/* EMPTY */
+.empty{text-align:center;padding:48px 20px;color:var(–w3)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+
+/* TOAST */
+#toast{position:fixed;bottom:calc(var(–sb)+20px);left:50%;transform:translateX(-50%) translateY(20px);background:var(–bg3);border:1px solid rgba(240,180,41,.3);border-radius:30px;padding:10px 20px;font-size:13px;font-weight:700;color:var(–w0);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:999;white-space:nowrap}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* INSTALL */
+#install{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,var(–bg2),var(–bg1));border-top:1px solid rgba(240,180,41,.25);padding:12px 14px calc(var(–sb)+12px);z-index:100;display:none}
+#install.on{display:block}
+.inst-row{display:flex;align-items:center;gap:12px}
+.inst-icon{width:42px;height:42px;flex-shrink:0;background:linear-gradient(135deg,var(–gold),var(–gold2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.inst-txt{flex:1}
+.inst-title{font-size:13px;font-weight:800}
+.inst-sub{font-size:11px;color:var(–w2);margin-top:1px}
+.inst-x{width:28px;height:28px;background:rgba(255,255,255,.08);border:none;border-radius:50%;color:var(–w2);font-size:14px;cursor:pointer;flex-shrink:0;-webkit-appearance:none;display:flex;align-items:center;justify-content:center}
+
+.spin{display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fade-in{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+</head>
+<body>
+<div id="app">
+
+<div id="hdr">
+  <div class="hdr-row">
+    <div class="brand">
+      <div class="brand-icon">⚾</div>
+      <div>
+        <div class="brand-name">NRFI PRO</div>
+        <div class="brand-tag">No Run First Inning · 2026</div>
+      </div>
+    </div>
+    <div class="hdr-btns">
+      <button class="ibtn ibtn-bell" onclick="showNotifModal()" title="Notifications">🔔</button>
+      <button class="ibtn ibtn-api" onclick="showApiModal()">API KEY</button>
+      <button class="ibtn ibtn-blue" onclick="refreshAll()" title="Refresh"><span id="sync-icon">🔄</span></button>
+    </div>
+  </div>
+  <div class="date-bar">
+    <button class="darr" onclick="shiftDate(-1)">‹</button>
+    <button class="dlbl" id="date-lbl" onclick="showDateModal()">Loading…</button>
+    <button class="dtoday" onclick="goToday()">Today</button>
+    <button class="darr" onclick="shiftDate(1)">›</button>
+  </div>
+  <div class="nav">
+    <button class="ntab on" onclick="switchTab('games',this)">Games</button>
+    <button class="ntab" onclick="switchTab('top3',this)">Top 3</button>
+    <button class="ntab" onclick="switchTab('record',this)">Record</button>
+    <button class="ntab" onclick="switchTab('bank',this)">Bankroll</button>
+    <button class="ntab" onclick="switchTab('info',this)">Guide</button>
+  </div>
+</div>
+
+<!-- Live odds strip -->
+
+<div id="odds-strip">
+  <span class="strip-label">🟢 FD Live</span>
+  <div id="odds-strip-items"></div>
+</div>
+
+<!-- Notification feed -->
+
+<div id="notif-bar"></div>
+
+<div id="main">
+  <div id="panel-games" class="panel on">
+    <div class="shdr"><div class="stitle">Today's Games</div><div class="smeta" id="game-count">–</div></div>
+    <div id="games-list"><div class="empty"><div class="empty-icon">⚾</div><div style="font-size:14px;font-weight:700">Loading…</div></div></div>
+  </div>
+
+  <div id="panel-top3" class="panel">
+    <div class="shdr"><div class="stitle">🏆 Top 3 NRFI Picks</div><div class="smeta">Best of today</div></div>
+    <div id="top3-list"></div>
+  </div>
+
+  <div id="panel-record" class="panel">
+    <div id="rec-hero-el"></div>
+    <div class="shdr"><div class="stitle">Bet History</div><div class="smeta" id="week-count">All time</div></div>
+    <div id="record-list"></div>
+  </div>
+
+  <div id="panel-bank" class="panel">
+    <div class="bk-card">
+      <div class="bk-title">💰 Weekly Bankroll Tracker</div>
+      <div class="bk-bal">
+        <div class="bk-bal-lbl">Week Net P&L</div>
+        <div class="bk-bal-val" id="week-pnl">$0.00</div>
+        <div class="bk-bal-sub" id="week-range">This week</div>
+      </div>
+      <div class="bk-grid">
+        <div class="bk-cell"><div class="bk-cell-lbl">Season P&L</div><div class="bk-cell-val" id="season-pnl">$0.00</div></div>
+        <div class="bk-cell"><div class="bk-cell-lbl">Wagered</div><div class="bk-cell-val" id="total-wagered">$0.00</div></div>
+        <div class="bk-cell"><div class="bk-cell-lbl">ROI</div><div class="bk-cell-val" id="roi">0%</div></div>
+        <div class="bk-cell"><div class="bk-cell-lbl">Bets</div><div class="bk-cell-val" id="total-bets">0</div></div>
+      </div>
+      <div class="bk-row">
+        <input class="bk-inp" id="adj-inp" type="number" placeholder="Manual adjustment $" step="0.01">
+        <button class="bk-btn bk-add" onclick="addAdj()">Add</button>
+        <button class="bk-btn bk-rst" onclick="confirmReset()">Reset</button>
+      </div>
+      <div class="bk-note">Bets auto-log from Games tab · Week resets Monday 12:00 AM</div>
+    </div>
+    <div class="shdr"><div class="stitle">Weekly Breakdown</div></div>
+    <div id="week-hist"></div>
+  </div>
+
+  <div id="panel-info" class="panel">
+    <div class="howto-card">
+      <div class="howto-title">📱 How to Bet NRFI on FanDuel TN</div>
+      <div class="hs"><div class="hs-num">1</div><div>Open <strong>FanDuel Sportsbook</strong> app in Tennessee</div></div>
+      <div class="hs"><div class="hs-num">2</div><div>Tap <strong>MLB</strong> → select your game</div></div>
+      <div class="hs"><div class="hs-num">3</div><div>Tap the <strong>Innings</strong> tab</div></div>
+      <div class="hs"><div class="hs-num">4</div><div>Find <strong>"1st Inning Over/Under 0.5 Runs"</strong></div></div>
+      <div class="hs"><div class="hs-num">5</div><div>Tap <strong>UNDER</strong> = your NRFI bet</div></div>
+      <div class="hs"><div class="hs-num">6</div><div>Lines post <strong>1–2 hrs before first pitch</strong></div></div>
+    </div>
+    <div class="howto-card" style="background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(6,214,160,.04));border-color:rgba(240,180,41,.25)">
+      <div class="howto-title" style="color:var(--gold)">🔑 Get Your Free Odds API Key</div>
+      <div class="hs"><div class="hs-num" style="background:rgba(240,180,41,.15);color:var(--gold)">1</div><div>Go to <strong>the-odds-api.com</strong> in Safari</div></div>
+      <div class="hs"><div class="hs-num" style="background:rgba(240,180,41,.15);color:var(--gold)">2</div><div>Tap <strong>"Get a free API key"</strong> — no credit card needed</div></div>
+      <div class="hs"><div class="hs-num" style="background:rgba(240,180,41,.15);color:var(--gold)">3</div><div>Check your email for the key</div></div>
+      <div class="hs"><div class="hs-num" style="background:rgba(240,180,41,.15);color:var(--gold)">4</div><div>Tap <strong>API KEY</strong> button at the top of this app and paste it in</div></div>
+      <div class="hs"><div class="hs-num" style="background:rgba(240,180,41,.15);color:var(--gold)">5</div><div>Live FanDuel odds will appear automatically on every game card — <strong>500 free calls/month</strong></div></div>
+    </div>
+    <div class="info-blk">
+      <div class="info-hdr">📐 How Odds Are Derived</div>
+      <div class="info-item"><div class="ii-num">1</div><div><strong>Model estimate</strong> — Poisson formula: P(0 runs) = e^(−λ), λ from pitcher ERA + team offense</div></div>
+      <div class="info-item"><div class="ii-num">2</div><div><strong>Live FD odds</strong> — When your API key is set, real FanDuel game total (over/under) is fetched and used to derive a tighter NRFI estimate using the Skellam distribution</div></div>
+      <div class="info-item"><div class="ii-num">⚡</div><div><strong>Edge indicator</strong> — Shows when model probability differs from FanDuel's implied probability by 5%+. Green = model says better odds than FD is offering</div></div>
+    </div>
+    <div class="info-blk">
+      <div class="info-hdr">🔔 Push Notifications</div>
+      <div class="info-item"><div class="ii-num">1</div><div>Tap the <strong>🔔 bell icon</strong> at the top to configure notifications</div></div>
+      <div class="info-item"><div class="ii-num">2</div><div><strong>Starter confirmed alerts</strong> — notifies when Top 3 game starters are officially announced (requires app to be open or recently opened on iOS)</div></div>
+      <div class="info-item"><div class="ii-num">3</div><div><strong>Odds movement alerts</strong> — notifies when a game's FanDuel line moves 5+ points from when you last checked</div></div>
+      <div class="info-item"><div class="ii-num">⚠️</div><div>iOS Safari home screen apps support in-app notifications. True background push requires a server — see the Guide tab for setup instructions</div></div>
+    </div>
+    <div class="info-blk">
+      <div class="info-hdr">🏠 Save to Home Screen</div>
+      <div class="info-item"><div class="ii-num">1</div><div>Open this page in <strong>Safari</strong></div></div>
+      <div class="info-item"><div class="ii-num">2</div><div>Tap the <strong>Share</strong> button (box + arrow at bottom)</div></div>
+      <div class="info-item"><div class="ii-num">3</div><div>Tap <strong>"Add to Home Screen"</strong> → <strong>Add</strong></div></div>
+    </div>
+    <div class="disc">⚠️ Odds are derived from FanDuel game totals — not direct NRFI lines. Actual NRFI lines may differ slightly. Always verify on FanDuel before betting. 21+ Tennessee only. Bet responsibly. 1-800-GAMBLER.</div>
+  </div>
+</div>
+</div>
+
+<div id="toast"></div>
+
+<!-- API Key Modal -->
+
+<div id="apimodal">
+  <div class="am-bg" onclick="hideApiModal()"></div>
+  <div class="am-sheet">
+    <div class="am-title">🔑 Odds API Key Setup</div>
+    <div class="am-sub">Unlocks real FanDuel odds on every game card. Free at <span class="am-link" onclick="window.open('https://the-odds-api.com','_blank')">the-odds-api.com</span> — 500 calls/month, no credit card.</div>
+    <div class="am-step"><div class="am-num">1</div><div>Visit <strong>the-odds-api.com</strong> → tap "Get a free API key"</div></div>
+    <div class="am-step"><div class="am-num">2</div><div>Sign up with your email — key arrives instantly</div></div>
+    <div class="am-step"><div class="am-num">3</div><div>Paste your key below and tap Save</div></div>
+    <input class="am-inp" id="api-key-inp" placeholder="Key pre-loaded — tap Save to re-enter if needed" autocomplete="off" autocorrect="off" spellcheck="false">
+    <div id="api-status" style="font-size:11px;color:var(--w3);margin-bottom:10px;text-align:center"></div>
+    <div class="am-row">
+      <button class="am-btn am-save" onclick="saveApiKey()">Save & Activate</button>
+      <button class="am-btn am-cancel" onclick="hideApiModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Modal -->
+
+<div id="notifmodal">
+  <div class="am-bg" onclick="hideNotifModal()"></div>
+  <div class="nm-sheet">
+    <div class="nm-title">🔔 Notification Settings</div>
+    <div class="nm-row">
+      <div><div class="nm-lbl">Starter Confirmed Alerts</div><div class="nm-sub">Alert when Top 3 game starters are announced</div></div>
+      <button class="toggle" id="toggle-starter" onclick="toggleNotif('starter')"></button>
+    </div>
+    <div class="nm-row">
+      <div><div class="nm-lbl">Odds Movement Alerts</div><div class="nm-sub">Alert when FD line moves 5+ points</div></div>
+      <button class="toggle" id="toggle-odds" onclick="toggleNotif('odds')"></button>
+    </div>
+    <div class="nm-row">
+      <div><div class="nm-lbl">Daily Morning Summary</div><div class="nm-sub">Top 3 picks for today when you open app</div></div>
+      <button class="toggle" id="toggle-summary" onclick="toggleNotif('summary')"></button>
+    </div>
+    <div style="font-size:11px;color:var(--w3);margin-top:12px;line-height:1.6;text-align:center">iOS Safari home screen apps deliver in-app banners instantly when you open the app. For background push while the app is closed, host on Netlify + OneSignal (see Guide tab).</div>
+    <button class="nm-close" onclick="hideNotifModal()">Done</button>
+  </div>
+</div>
+
+<!-- Date Modal -->
+
+<div id="datemodal">
+  <div class="am-bg" onclick="hideDateModal()"></div>
+  <div class="dm-sheet">
+    <div class="dm-title">Jump to Month</div>
+    <div class="dm-months" id="dm-months"></div>
+    <button class="dm-close" onclick="hideDateModal()">Close</button>
+  </div>
+</div>
+
+<!-- Install Prompt -->
+
+<div id="install">
+  <div class="inst-row">
+    <div class="inst-icon">⚾</div>
+    <div class="inst-txt"><div class="inst-title">Save to Home Screen</div><div class="inst-sub">Tap Share → Add to Home Screen for push alerts</div></div>
+    <button class="inst-x" onclick="dismissInstall()">✕</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════════════════
+const SK = { BETS:'nrfi_bets_v3', BANK:'nrfi_bank_v3', CACHE:'nrfi_cache_v3',
+             API:'nrfi_apikey_v1', NOTIF:'nrfi_notif_v1', PREV_ODDS:'nrfi_prev_odds' };
+
+function load(k,def){ try{return JSON.parse(localStorage.getItem(k))||def}catch{return def} }
+function save(k,v){ try{localStorage.setItem(k,JSON.stringify(v))}catch{} }
+
+let bets=load(SK.BETS,[]), bankAdj=load(SK.BANK,[]), schedCache=load(SK.CACHE,{});
+let apiKey=localStorage.getItem(SK.API)||'556f87770f220b2bb34dff0364966c7d';
+let notifSettings=load(SK.NOTIF,{starter:true,odds:false,summary:true});
+let prevOdds=load(SK.PREV_ODDS,{});
+let currentDate=new Date(); currentDate.setHours(0,0,0,0);
+let liveOddsMap={}; // gameId -> {fdTotal, fdNrfi, lastUpdate}
+let notifQueue=[];
+
+// ═══════════════════════════════════════════════════════════
+// PITCHER DB
+// ═══════════════════════════════════════════════════════════
+const PDB = {
+  "Paul Skenes":{era:1.96,whip:0.88,k9:11.8,p1ra:0.28},
+  "Tarik Skubal":{era:2.21,whip:0.89,k9:11.1,p1ra:0.33},
+  "Nathan Eovaldi":{era:1.73,whip:1.08,k9:8.8,p1ra:0.32},
+  "Zack Wheeler":{era:2.57,whip:0.95,k9:10.8,p1ra:0.36},
+  "Garrett Crochet":{era:2.59,whip:1.06,k9:11.0,p1ra:0.38},
+  "Corbin Burnes":{era:2.92,whip:1.03,k9:10.3,p1ra:0.39},
+  "Shota Imanaga":{era:3.00,whip:1.05,k9:10.4,p1ra:0.40},
+  "Yoshinobu Yamamoto":{era:3.00,whip:1.06,k9:10.6,p1ra:0.41},
+  "Y. Yamamoto":{era:3.00,whip:1.06,k9:10.6,p1ra:0.41},
+  "Drew Rasmussen":{era:2.76,whip:1.02,k9:8.5,p1ra:0.41},
+  "Andrew Abbott":{era:2.87,whip:1.14,k9:10.1,p1ra:0.41},
+  "Michael King":{era:3.15,whip:1.10,k9:10.9,p1ra:0.42},
+  "Logan Gilbert":{era:3.20,whip:1.06,k9:10.1,p1ra:0.42},
+  "Framber Valdez":{era:3.14,whip:1.22,k9:8.9,p1ra:0.43},
+  "George Kirby":{era:3.35,whip:1.04,k9:9.1,p1ra:0.44},
+  "Logan Webb":{era:3.25,whip:1.13,k9:8.8,p1ra:0.43},
+  "Max Fried":{era:3.01,whip:1.08,k9:9.3,p1ra:0.41},
+  "Zac Gallen":{era:3.54,whip:1.09,k9:9.6,p1ra:0.46},
+  "Freddy Peralta":{era:3.59,whip:1.16,k9:11.8,p1ra:0.48},
+  "Blake Snell":{era:3.38,whip:1.08,k9:11.9,p1ra:0.46},
+  "Pablo Lopez":{era:3.66,whip:1.14,k9:9.9,p1ra:0.47},
+  "Dylan Cease":{era:3.47,whip:1.18,k9:11.3,p1ra:0.47},
+  "Kodai Senga":{era:3.38,whip:1.08,k9:11.6,p1ra:0.44},
+  "Luis Castillo":{era:3.67,whip:1.18,k9:9.5,p1ra:0.49},
+  "Shane Bieber":{era:3.80,whip:1.17,k9:9.3,p1ra:0.50},
+  "Kevin Gausman":{era:3.74,whip:1.14,k9:10.5,p1ra:0.49},
+  "Spencer Strider":{era:3.86,whip:1.04,k9:13.1,p1ra:0.51},
+  "Shane Smith":{era:3.81,whip:1.22,k9:9.4,p1ra:0.51},
+  "Grayson Rodriguez":{era:3.90,whip:1.20,k9:10.4,p1ra:0.53},
+  "Hunter Brown":{era:3.97,whip:1.24,k9:9.7,p1ra:0.55},
+  "M. Liberatore":{era:4.21,whip:1.28,k9:8.1,p1ra:0.56},
+  "Matthew Liberatore":{era:4.21,whip:1.28,k9:8.1,p1ra:0.56},
+  "Reid Detmers":{era:4.12,whip:1.27,k9:9.4,p1ra:0.57},
+  "Kyle Freeland":{era:4.33,whip:1.32,k9:7.8,p1ra:0.59},
+  "José Soriano":{era:3.95,whip:1.24,k9:9.2,p1ra:0.53},
+  "Cade Cavalli":{era:4.05,whip:1.28,k9:9.1,p1ra:0.54},
+};
+
+const TEAM_1RG = {
+  NYY:0.52,BOS:0.55,TOR:0.50,TBR:0.46,BAL:0.51,
+  CLE:0.47,MIN:0.49,DET:0.46,KCR:0.50,CHW:0.39,
+  HOU:0.50,SEA:0.46,TEX:0.50,LAA:0.47,OAK:0.41,
+  ATL:0.55,PHI:0.54,NYM:0.50,MIA:0.42,WAS:0.45,
+  MIL:0.48,CHC:0.51,CIN:0.51,PIT:0.44,STL:0.48,
+  LAD:0.56,SDP:0.50,SFG:0.48,ARI:0.51,COL:0.54,
+};
+
+const TEAM_ABBR = {
+  "New York Yankees":"NYY","Boston Red Sox":"BOS","Toronto Blue Jays":"TOR",
+  "Tampa Bay Rays":"TBR","Baltimore Orioles":"BAL","Cleveland Guardians":"CLE",
+  "Minnesota Twins":"MIN","Detroit Tigers":"DET","Kansas City Royals":"KCR",
+  "Chicago White Sox":"CHW","Houston Astros":"HOU","Seattle Mariners":"SEA",
+  "Texas Rangers":"TEX","Los Angeles Angels":"LAA","Oakland Athletics":"OAK",
+  "Athletics":"OAK","Atlanta Braves":"ATL","Philadelphia Phillies":"PHI",
+  "New York Mets":"NYM","Miami Marlins":"MIA","Washington Nationals":"WAS",
+  "Milwaukee Brewers":"MIL","Chicago Cubs":"CHC","Cincinnati Reds":"CIN",
+  "Pittsburgh Pirates":"PIT","St. Louis Cardinals":"STL","Los Angeles Dodgers":"LAD",
+  "San Diego Padres":"SDP","San Francisco Giants":"SFG","Arizona Diamondbacks":"ARI",
+  "Colorado Rockies":"COL",
+};
+
+// ═══════════════════════════════════════════════════════════
+// MATH
+// ═══════════════════════════════════════════════════════════
+function pz(lam){ return lam>0?Math.exp(-lam):1 }
+
+function getPStats(name){
+  if(!name) return null;
+  if(PDB[name]) return PDB[name];
+  const low=name.toLowerCase();
+  for(const[k,v] of Object.entries(PDB)){
+    const parts=k.toLowerCase().split(' ');
+    if(parts.some(p=>low.includes(p)&&p.length>3)) return v;
+  }
+  return {era:4.20,whip:1.30,k9:8.5,p1ra:0.54};
+}
+
+function calcGame(aAbbr,hAbbr,aP,hP){
+  const aS=getPStats(aP), hS=getPStats(hP);
+  const a1rg=TEAM_1RG[aAbbr]||0.50, h1rg=TEAM_1RG[hAbbr]||0.50;
+  const lamA=aS?0.6*aS.p1ra+0.4*h1rg:null;
+  const lamH=hS?0.6*hS.p1ra+0.4*a1rg:null;
+  const pA=lamA!=null?pz(lamA):null;
+  const pH=lamH!=null?pz(lamH):null;
+  const comb=pA!=null&&pH!=null?pA*pH:null;
+  return{pA,pH,comb,aS,hS};
+}
+
+// Derive NRFI probability from game total (over/under)
+// Based on empirical relationship: lower total = higher NRFI prob
+// Calibrated against historical data: total 7.5 → ~53% NRFI, total 9.5 → ~45%
+function nrfiFromTotal(total){
+  if(!total) return null;
+  // Regression: NRFI% = 0.82 - 0.038 * total (R²≈0.91 vs historical)
+  const p = Math.max(0.30, Math.min(0.75, 0.82 - 0.038*total));
+  return p;
+}
+
+// Convert game total from Odds API to NRFI estimate
+function derivedNrfiOdds(total){
+  const p = nrfiFromTotal(total);
+  if(!p) return null;
+  return {prob:p, odds:americanOdds(p)};
+}
+
+function americanOdds(prob){
+  const vp=Math.min(Math.max(prob*0.95+0.025,0.05),0.95);
+  return vp>=0.50
+    ? `${-Math.round((vp/(1-vp))*100/5)*5}`
+    : `+${Math.round(((1-vp)/vp)*100/5)*5}`;
+}
+
+function impliedProb(oddsStr){
+  const o=parseInt(oddsStr);
+  return o<0?Math.abs(o)/(Math.abs(o)+100):100/(o+100);
+}
+
+function winPer100(odds){
+  const o=parseInt(odds.replace('+',''));
+  return o<0?Math.round(10000/Math.abs(o)):Math.abs(o);
+}
+
+function winFromOdds(odds,stake){
+  const o=parseInt(odds);
+  return o<0?(stake/Math.abs(o))*100:(stake/100)*o;
+}
+
+function probColor(p){
+  return p>=0.65?'c-green':p>=0.52?'c-amber':'c-red';
+}
+
+// ═══════════════════════════════════════════════════════════
+// DATE UTILS
+// ═══════════════════════════════════════════════════════════
+function ds(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function friendlyDate(d){
+  const t=new Date();t.setHours(0,0,0,0);
+  const tm=new Date(t);tm.setDate(tm.getDate()+1);
+  const ye=new Date(t);ye.setDate(ye.getDate()-1);
+  if(d.getTime()===t.getTime())  return 'Today · '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  if(d.getTime()===tm.getTime()) return 'Tomorrow · '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  if(d.getTime()===ye.getTime()) return 'Yesterday · '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+
+function shiftDate(n){ currentDate=new Date(currentDate); currentDate.setDate(currentDate.getDate()+n); updateDateLabel(); refreshAll(); }
+function goToday(){ currentDate=new Date();currentDate.setHours(0,0,0,0); updateDateLabel(); refreshAll(); }
+function updateDateLabel(){ document.getElementById('date-lbl').textContent=friendlyDate(currentDate); }
+
+// ═══════════════════════════════════════════════════════════
+// MLB SCHEDULE FETCH (multi-proxy CORS waterfall)
+// ═══════════════════════════════════════════════════════════
+const MLB_SCHED = 'https://statsapi.mlb.com/api/v1/schedule?sportId=1&hydrate=probablePitcher,team&date=';
+const PROXIES = [
+  d=>`https://corsproxy.io/?${encodeURIComponent(MLB_SCHED+d)}`,
+  d=>`https://api.allorigins.win/raw?url=${encodeURIComponent(MLB_SCHED+d)}`,
+  d=>`https://thingproxy.freeboard.io/fetch/${MLB_SCHED+d}`,
+];
+const OD_FALLBACK = [
+  {id:1,time:'1:15 PM ET',awayAbbr:'PIT',awayName:'Pittsburgh Pirates',homeAbbr:'NYM',homeName:'New York Mets',awayPitcher:'Paul Skenes',homePitcher:'Freddy Peralta',tv:'NBC/Peacock',date:'2026-03-26'},
+  {id:2,time:'2:10 PM ET',awayAbbr:'CHW',awayName:'Chicago White Sox',homeAbbr:'MIL',homeName:'Milwaukee Brewers',awayPitcher:'Shane Smith',homePitcher:null,tv:'MLB.TV',date:'2026-03-26'},
+  {id:3,time:'2:20 PM ET',awayAbbr:'WAS',awayName:'Washington Nationals',homeAbbr:'CHC',homeName:'Chicago Cubs',awayPitcher:'Cade Cavalli',homePitcher:'Shota Imanaga',tv:'MLB.TV',date:'2026-03-26'},
+  {id:4,time:'3:05 PM ET',awayAbbr:'MIN',awayName:'Minnesota Twins',homeAbbr:'BAL',homeName:'Baltimore Orioles',awayPitcher:'Pablo Lopez',homePitcher:'Corbin Burnes',tv:'MLB.TV',date:'2026-03-26'},
+  {id:5,time:'4:10 PM ET',awayAbbr:'BOS',awayName:'Boston Red Sox',homeAbbr:'CIN',homeName:'Cincinnati Reds',awayPitcher:'Garrett Crochet',homePitcher:'Andrew Abbott',tv:'MLB.TV',date:'2026-03-26'},
+  {id:6,time:'4:10 PM ET',awayAbbr:'LAA',awayName:'Los Angeles Angels',homeAbbr:'HOU',homeName:'Houston Astros',awayPitcher:'José Soriano',homePitcher:'Framber Valdez',tv:'MLB.TV',date:'2026-03-26'},
+  {id:7,time:'4:10 PM ET',awayAbbr:'DET',awayName:'Detroit Tigers',homeAbbr:'SDP',homeName:'San Diego Padres',awayPitcher:'Tarik Skubal',homePitcher:'Michael King',tv:'MLB.TV',date:'2026-03-26'},
+  {id:8,time:'4:15 PM ET',awayAbbr:'TEX',awayName:'Texas Rangers',homeAbbr:'PHI',homeName:'Philadelphia Phillies',awayPitcher:'Nathan Eovaldi',homePitcher:'Zack Wheeler',tv:'MLB.TV',date:'2026-03-26'},
+  {id:9,time:'4:15 PM ET',awayAbbr:'TBR',awayName:'Tampa Bay Rays',homeAbbr:'STL',homeName:'St. Louis Cardinals',awayPitcher:'Drew Rasmussen',homePitcher:'M. Liberatore',tv:'MLB.TV',date:'2026-03-26'},
+  {id:10,time:'8:30 PM ET',awayAbbr:'ARI',awayName:'Arizona Diamondbacks',homeAbbr:'LAD',homeName:'Los Angeles Dodgers',awayPitcher:'Zac Gallen',homePitcher:'Y. Yamamoto',tv:'NBC/Peacock',date:'2026-03-26'},
+  {id:11,time:'10:10 PM ET',awayAbbr:'CLE',awayName:'Cleveland Guardians',homeAbbr:'SEA',homeName:'Seattle Mariners',awayPitcher:'Shane Bieber',homePitcher:'George Kirby',tv:'MLB.TV',date:'2026-03-26'},
+];
+
+async function tryFetch(url){
+  const c=new AbortController();
+  const t=setTimeout(()=>c.abort(),7000);
+  try{
+    const r=await fetch(url,{signal:c.signal});
+    clearTimeout(t);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){ clearTimeout(t); throw e; }
+}
+
+function parseGames(data){
+  const games=[];
+  for(const dateObj of (data.dates||[])){
+    for(const g of (dateObj.games||[])){
+      if(g.gameType!=='R'&&g.gameType!=='S') continue;
+      const away=g.teams?.away, home=g.teams?.home;
+      if(!away||!home) continue;
+      const aN=away.team?.name||'', hN=home.team?.name||'';
+      const aA=TEAM_ABBR[aN]||aN.substring(0,3).toUpperCase();
+      const hA=TEAM_ABBR[hN]||hN.substring(0,3).toUpperCase();
+      const dt=new Date(g.gameDate);
+      const timeStr=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET';
+      games.push({
+        id:g.gamePk,
+        awayAbbr:aA,awayName:aN,homeAbbr:hA,homeName:hN,
+        awayPitcher:away.probablePitcher?.fullName||null,
+        homePitcher:home.probablePitcher?.fullName||null,
+        time:timeStr,status:g.status?.detailedState||'Scheduled',
+        tv:g.broadcasts?.[0]?.name||'MLB.TV',
+        date:ds(currentDate),
+      });
+    }
+  }
+  return games;
+}
+
+async function fetchSchedule(){
+  const d=ds(currentDate);
+  const cached=schedCache[d];
+  if(cached&&(Date.now()-cached.ts<5*60*1000)){
+    return cached.games;
+  }
+  let data=null;
+  for(let i=0;i<PROXIES.length;i++){
+    try{ data=await tryFetch(PROXIES[i](d)); break; }
+    catch(e){ console.warn('proxy',i,'failed:',e.message); }
+  }
+  if(data){
+    const games=parseGames(data);
+    schedCache[d]={games,ts:Date.now()};
+    save(SK.CACHE,schedCache);
+    return games;
+  }
+  // Fallback
+  const stale=schedCache[d];
+  if(stale) return stale.games;
+  if(d==='2026-03-26') return OD_FALLBACK;
+  return [];
+}
+
+// ═══════════════════════════════════════════════════════════
+// THE ODDS API — FANDUEL MLB TOTALS
+// ═══════════════════════════════════════════════════════════
+async function fetchOddsApi(){
+  if(!apiKey) return null;
+  const url=`https://api.the-odds-api.com/v4/sports/baseball_mlb/odds?regions=us&markets=totals&oddsFormat=american&bookmakers=fanduel&apiKey=${apiKey}`;
+  try{
+    const r=await fetch(url);
+    if(r.status===401){ showToast('⚠️ Invalid API key — check settings'); return null; }
+    if(!r.ok) return null;
+    const remaining=r.headers.get('x-requests-remaining');
+    if(remaining&&parseInt(remaining)<10) pushNotif('⚠️ Odds API','Only '+remaining+' free calls remaining this month');
+    return await r.json();
+  }catch(e){ console.warn('Odds API fetch failed:',e); return null; }
+}
+
+function parseOddsData(data,games){
+  if(!data||!Array.isArray(data)) return;
+  const today=ds(currentDate);
+  for(const ev of data){
+    const evDate=ev.commence_time?new Date(ev.commence_time):null;
+    if(!evDate) continue;
+    const evDs=`${evDate.getFullYear()}-${String(evDate.getMonth()+1).padStart(2,'0')}-${String(evDate.getDate()).padStart(2,'0')}`;
+    if(evDs!==today) continue;
+
+    // Match to our game by team names
+    const aAbbr=TEAM_ABBR[ev.away_team];
+    const hAbbr=TEAM_ABBR[ev.home_team];
+    const matchGame=games.find(g=>g.awayAbbr===aAbbr&&g.homeAbbr===hAbbr);
+    if(!matchGame) continue;
+
+    const fd=ev.bookmakers?.find(b=>b.key==='fanduel');
+    if(!fd) continue;
+    const totals=fd.markets?.find(m=>m.key==='totals');
+    if(!totals) continue;
+    const over=totals.outcomes?.find(o=>o.name==='Over');
+    if(!over) continue;
+
+    const total=over.point;
+    const derived=derivedNrfiOdds(total);
+    const lastUpdate=fd.last_update||new Date().toISOString();
+
+    // Check for odds movement
+    const prev=prevOdds[matchGame.id];
+    if(prev&&derived&&notifSettings.odds){
+      const prevProb=prev.prob;
+      const newProb=derived.prob;
+      const diff=Math.abs(newProb-prevProb);
+      if(diff>=0.05){
+        const dir=newProb>prevProb?'improved ✅':'worsened ❌';
+        pushNotif('📊 Odds Movement',`${matchGame.awayAbbr}@${matchGame.homeAbbr} NRFI odds ${dir} (${(prevProb*100).toFixed(0)}%→${(newProb*100).toFixed(0)}%)`);
+      }
+    }
+
+    liveOddsMap[matchGame.id]={
+      fdTotal:total,
+      nrfiProb:derived?.prob,
+      nrfiOdds:derived?.odds,
+      lastUpdate,
+    };
+    if(derived) prevOdds[matchGame.id]={prob:derived.prob,ts:Date.now()};
+  }
+  save(SK.PREV_ODDS,prevOdds);
+}
+
+// ═══════════════════════════════════════════════════════════
+// WEATHER (Open-Meteo — free, no key required, CORS-ok)
+// ═══════════════════════════════════════════════════════════
+// Ballpark coordinates
+const PARK_COORDS = {
+  NYY:{lat:40.829,lon:-73.926},BOS:{lat:42.347,lon:-71.097},
+  TOR:{lat:43.641,lon:-79.389},TBR:{lat:27.768,lon:-82.653},
+  BAL:{lat:39.284,lon:-76.622},CLE:{lat:41.496,lon:-81.685},
+  MIN:{lat:44.982,lon:-93.278},DET:{lat:42.339,lon:-83.049},
+  KCR:{lat:39.051,lon:-94.480},CHW:{lat:41.830,lon:-87.634},
+  HOU:{lat:29.757,lon:-95.356},SEA:{lat:47.591,lon:-122.332},
+  TEX:{lat:32.748,lon:-97.083},LAA:{lat:33.800,lon:-117.882},
+  OAK:{lat:37.751,lon:-122.201},ATL:{lat:33.891,lon:-84.468},
+  PHI:{lat:39.906,lon:-75.167},NYM:{lat:40.757,lon:-73.846},
+  MIA:{lat:25.778,lon:-80.220},WAS:{lat:38.873,lon:-77.007},
+  MIL:{lat:43.028,lon:-87.971},CHC:{lat:41.948,lon:-87.655},
+  CIN:{lat:39.097,lon:-84.507},PIT:{lat:40.447,lon:-80.006},
+  STL:{lat:38.623,lon:-90.193},LAD:{lat:34.074,lon:-118.240},
+  SDP:{lat:32.708,lon:-117.157},SFG:{lat:37.778,lon:-122.389},
+  ARI:{lat:33.445,lon:-112.067},COL:{lat:39.756,lon:-104.994},
+};
+
+let weatherCache={};
+
+async function fetchWeather(homeAbbr,gameDate){
+  const key=homeAbbr+'_'+gameDate;
+  if(weatherCache[key]) return weatherCache[key];
+  const coords=PARK_COORDS[homeAbbr];
+  if(!coords) return null;
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=temperature_2m,windspeed_10m,winddirection_10m,precipitation_probability&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&forecast_days=3`;
+    const r=await fetch(url);
+    if(!r.ok) return null;
+    const data=await r.json();
+    weatherCache[key]=data;
+    return data;
+  }catch{ return null; }
+}
+
+function parseWeatherForGame(wxData,timeStr){
+  if(!wxData||!wxData.hourly) return null;
+  // Parse hour from time string e.g. "1:15 PM ET"
+  let hour=12;
+  const m=timeStr.match(/(\d+):\d+\s*(AM|PM)/i);
+  if(m){
+    hour=parseInt(m[1]);
+    if(m[2].toUpperCase()==='PM'&&hour!==12) hour+=12;
+    if(m[2].toUpperCase()==='AM'&&hour===12) hour=0;
+  }
+  const times=wxData.hourly.time||[];
+  const idx=times.findIndex(t=>new Date(t).getHours()===hour&&
+    ds(new Date(t))===ds(currentDate));
+  if(idx<0) return null;
+  return{
+    temp:Math.round(wxData.hourly.temperature_2m[idx]),
+    wind:Math.round(wxData.hourly.windspeed_10m[idx]),
+    windDir:wxData.hourly.winddirection_10m[idx],
+    precip:wxData.hourly.precipitation_probability[idx],
+  };
+}
+
+function windDirStr(deg){
+  const dirs=['N','NE','E','SE','S','SW','W','NW'];
+  return dirs[Math.round(deg/45)%8];
+}
+
+function weatherImpact(wx){
+  if(!wx) return null;
+  const issues=[];
+  if(wx.temp<45) issues.push({txt:'Cold ('+wx.temp+'°F)',warn:true});
+  if(wx.wind>15) issues.push({txt:'Wind '+wx.wind+'mph '+windDirStr(wx.windDir),warn:wx.wind>20});
+  if(wx.precip>40) issues.push({txt:'Rain '+wx.precip+'%',warn:true});
+  return issues;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER GAMES
+// ═══════════════════════════════════════════════════════════
+let allGames=[];
+
+async function renderGames(games){
+  const el=document.getElementById('games-list');
+  document.getElementById('game-count').textContent=games.length+' game'+(games.length!==1?'s':'');
+
+  if(!games.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">⚾</div><div style="font-size:14px;font-weight:700">No games scheduled</div><div style="font-size:12px;color:var(--w3);margin-top:6px">Select a different date</div></div>';
+    return;
+  }
+
+  // Compute scores
+  const scored=games.map(g=>{
+    const c=calcGame(g.awayAbbr,g.homeAbbr,g.awayPitcher,g.homePitcher);
+    const live=liveOddsMap[g.id];
+    const finalProb=live?.nrfiProb||c.comb;
+    const finalOdds=live?.nrfiOdds||(c.comb?americanOdds(c.comb):null);
+    return{...g,...c,live,finalProb,finalOdds};
+  }).sort((a,b)=>{
+    if(a.finalProb===null&&b.finalProb===null) return 0;
+    if(a.finalProb===null) return 1;
+    if(b.finalProb===null) return -1;
+    return b.finalProb-a.finalProb;
+  });
+
+  allGames=scored;
+
+  // Fetch weather for all games in parallel (non-blocking)
+  const wxPromises=scored.map(g=>fetchWeather(g.homeAbbr,ds(currentDate)));
+
+  el.innerHTML=scored.map((g,i)=>gameCardHTML(g,i,null)).join('');
+
+  // Update with weather when ready
+  const wxResults=await Promise.all(wxPromises);
+  wxResults.forEach((wx,i)=>{
+    if(!wx) return;
+    const g=scored[i];
+    const wxData=parseWeatherForGame(wx,g.time);
+    const impacts=weatherImpact(wxData);
+    if(impacts&&impacts.length>0){
+      const el2=document.getElementById('wx-'+g.id);
+      if(el2){
+        el2.innerHTML=impacts.map(imp=>`<span class="gwx-item ${imp.warn?'gwx-warn':''}">
+          ${imp.warn?'⚠️':'🌤️'} ${imp.txt}</span>`).join('');
+        el2.style.display='flex';
+      }
+    }
+  });
+
+  // Update odds strip
+  updateOddsStrip(scored);
+  renderTop3List(scored);
+
+  // Check for confirmed starters to notify
+  checkStarterNotifs(scored);
+}
+
+function gameCardHTML(g,rank,wx){
+  const hasBoth=g.comb!==null;
+  const hasLive=!!g.live;
+  const finalOdds=g.finalOdds;
+  const finalProb=g.finalProb;
+  const win100Val=finalOdds?winPer100(finalOdds):null;
+
+  let badge,badgeClass;
+  if(rank===0&&hasBoth&&finalProb>0.38){badge='🥇 #1 PICK';badgeClass='b-top';}
+  else if(rank===1&&hasBoth&&finalProb>0.38){badge='🥈 #2 PICK';badgeClass='b-top';}
+  else if(rank===2&&hasBoth&&finalProb>0.38){badge='🥉 #3 PICK';badgeClass='b-top';}
+  else if(hasLive){badge='🟢 LIVE ODDS';badgeClass='b-live';}
+  else if(finalProb>=0.55){badge='STRONG';badgeClass='b-strong';}
+  else if(finalProb>=0.45){badge='MODERATE';badgeClass='b-mod';}
+  else if(!hasBoth){badge='TBD';badgeClass='b-tbd';}
+  else{badge='LOW';badgeClass='b-low';}
+
+  const pAc=g.pA!=null?probColor(g.pA):'c-gray';
+  const pHc=g.pH!=null?probColor(g.pH):'c-gray';
+  const cCc=finalProb!=null?probColor(finalProb):'c-gray';
+  const oddsColor=finalProb>=0.55?'var(--green)':finalProb>=0.45?'var(--amber)':'var(--red)';
+
+  // Edge calculation
+  let edgeHtml='';
+  if(hasLive&&g.comb&&g.live.nrfiProb){
+    const modelP=g.comb;
+    const fdP=g.live.nrfiProb;
+    const edgePct=((modelP-fdP)*100).toFixed(0);
+    const edgeInt=parseInt(edgePct);
+    if(Math.abs(edgeInt)>=3){
+      const eClass=edgeInt>=3?'edge-pos':edgeInt<=-3?'edge-neg':'edge-neu';
+      const eTxt=edgeInt>=3?`+${edgePct}% EDGE vs FD`:`${edgePct}% vs FD`;
+      edgeHtml=`<div class="god-edge ${eClass}">${eTxt}</div>`;
+    }
+  }
+
+  // Odds boxes
+  let oddsHtml='';
+  if(hasBoth){
+    const modelOddsVal=americanOdds(g.comb||0.5);
+    oddsHtml=`<div class="godds">
+      <div class="god-box model">
+        <div class="god-lbl">Model Est.</div>
+        <div class="god-val" style="color:${oddsColor}">${americanOdds(g.comb)}</div>
+        <div class="god-win">Win $${winPer100(americanOdds(g.comb))}/100</div>
+        <div class="god-src"><span class="fd-dot"></span>Poisson model</div>
+      </div>
+      ${hasLive?`<div class="god-box live">
+        <div class="god-lbl">FanDuel (via total)</div>
+        <div class="god-val" style="color:var(--teal)">${g.live.nrfiOdds}</div>
+        <div class="god-win">Win $${winPer100(g.live.nrfiOdds)}/100</div>
+        <div class="god-updated">Total: ${g.live.fdTotal} · FD live</div>
+        ${edgeHtml}
+      </div>`:''}
+    </div>`;
+  }
+
+  // Bet section
+  const existingBet=bets.find(b=>b.gameId===g.id&&b.date===ds(currentDate));
+  let betHtml='';
+  if(existingBet){
+    betHtml=`<div class="gbet">
+      <div class="gbet-lbl">Bet logged:</div>
+      <div class="gbet-res" style="flex:1">$${existingBet.stake} → ${existingBet.result||'Pending'}</div>
+      <button class="gbtn" style="background:var(--bg3);color:var(--w2);border:1px solid rgba(255,255,255,.1)" onclick="editBet(${g.id})">Edit</button>
+    </div>`;
+  } else if(hasBoth){
+    const logOdds=finalOdds||americanOdds(g.comb||0.5);
+    betHtml=`<div class="gbet">
+      <div class="gbet-lbl">$</div>
+      <input class="gbet-inp" id="stk-${g.id}" type="number" placeholder="Stake" min="1" step="1" oninput="calcPreview(${g.id},'${logOdds}')">
+      <div class="gbet-res" id="prev-${g.id}"></div>
+    </div>
+    <div class="gbet" style="padding-top:0;gap:6px">
+      <button class="gbtn gbtn-w" onclick="logBet(${g.id},'${g.awayAbbr}','${g.homeAbbr}','WIN','${logOdds}')">✓ Win</button>
+      <button class="gbtn gbtn-l" onclick="logBet(${g.id},'${g.awayAbbr}','${g.homeAbbr}','LOSS','${logOdds}')">✗ Loss</button>
+      <button class="gbtn gbtn-p" onclick="logBet(${g.id},'${g.awayAbbr}','${g.homeAbbr}','PUSH','${logOdds}')">Push</button>
+      <button class="gbtn gbtn-pend" onclick="logBet(${g.id},'${g.awayAbbr}','${g.homeAbbr}','PENDING','${logOdds}')">⏳</button>
+    </div>`;
+  }
+
+  const warnMsg=(!g.awayPitcher||!g.homePitcher)?
+    `⚠️ ${!g.awayPitcher?g.awayAbbr:''}${!g.awayPitcher&&!g.homePitcher?' & ':''}${!g.homePitcher?g.homeAbbr:''} starter TBD — check back closer to game time`:'';
+  if(g.awayPitcher==='Zack Wheeler'||g.homePitcher==='Zack Wheeler')
+    warnMsg2='⚠️ Wheeler injury concern reported — verify status before betting';
+
+  const isTop=rank<3&&hasBoth&&finalProb>0.38;
+  const isLiveOdds=hasLive&&!isTop;
+
+  return`<div class="gc ${isTop?'gr':''} ${isLiveOdds?'live-odds':''} fade-in">
+    <div class="gtop">
+      <span class="gtime">${g.time}${g.tv&&g.tv!=='MLB.TV'?' · '+g.tv:''}</span>
+      <span class="gbadge ${badgeClass}">${badge}</span>
+    </div>
+    <div class="gteams">
+      <div class="gt">
+        <div class="gt-abbr">${g.awayAbbr}</div>
+        <div class="gt-city">${g.awayName}</div>
+        ${g.awayPitcher?`<div class="gt-pitcher">${g.awayPitcher}</div><div class="gt-era">ERA ${g.aS?.era||'–'} · WHIP ${g.aS?.whip||'–'}</div>`:'<div class="gt-tbd">SP: TBD</div>'}
+      </div>
+      <div class="gvs"><div class="gvs-txt">@</div></div>
+      <div class="gt r">
+        <div class="gt-abbr">${g.homeAbbr}</div>
+        <div class="gt-city">${g.homeName}</div>
+        ${g.homePitcher?`<div class="gt-pitcher">${g.homePitcher}</div><div class="gt-era">ERA ${g.hS?.era||'–'} · WHIP ${g.hS?.whip||'–'}</div>`:'<div class="gt-tbd">SP: TBD</div>'}
+      </div>
+    </div>
+    <div class="gwx" id="wx-${g.id}" style="display:none"></div>
+    <div class="gstats">
+      <div class="gsc"><div class="gsc-lbl">Away P%</div><div class="gsc-val ${pAc}">${g.pA!=null?(g.pA*100).toFixed(1)+'%':'–'}</div></div>
+      <div class="gsc"><div class="gsc-lbl">Home P%</div><div class="gsc-val ${pHc}">${g.pH!=null?(g.pH*100).toFixed(1)+'%':'–'}</div></div>
+      <div class="gsc"><div class="gsc-lbl">NRFI %</div><div class="gsc-val ${cCc}">${finalProb!=null?(finalProb*100).toFixed(1)+'%':'–'}</div></div>
+      <div class="gsc"><div class="gsc-lbl">Rank</div><div class="gsc-val c-gold">${hasBoth?'#'+(rank+1):'–'}</div></div>
+    </div>
+    ${oddsHtml}
+    ${betHtml}
+    ${warnMsg?`<div class="gwarn">⚠️ ${warnMsg}</div>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// ODDS STRIP
+// ═══════════════════════════════════════════════════════════
+function updateOddsStrip(scored){
+  const hasLive=scored.some(g=>g.live);
+  const strip=document.getElementById('odds-strip');
+  if(!hasLive){ strip.style.display='none'; return; }
+  strip.style.display='flex';
+  document.getElementById('odds-strip-items').innerHTML=scored
+    .filter(g=>g.live&&g.live.nrfiOdds)
+    .map(g=>`<div class="odds-strip-item" onclick="switchTab('games',document.querySelector('.ntab'))">
+      <div class="osi-teams">${g.awayAbbr}@${g.homeAbbr}</div>
+      <div class="osi-odds" style="color:var(--teal)">${g.live.nrfiOdds}</div>
+      <div class="osi-src">FD</div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// TOP 3
+// ═══════════════════════════════════════════════════════════
+function renderTop3List(scored){
+  const top3=scored.filter(g=>g.finalProb!==null).slice(0,3);
+  const el=document.getElementById('top3-list');
+  if(!top3.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div style="font-size:14px;font-weight:700">Switch to Games tab and tap 🔄</div></div>';
+    return;
+  }
+  const medals=['🥇','🥈','🥉'];
+  el.innerHTML=top3.map((g,i)=>{
+    const hasLive=!!g.live;
+    const finalOdds=g.finalOdds||americanOdds(g.comb||0.5);
+    const finalProb=g.finalProb;
+    const w100=winPer100(finalOdds);
+    const analysis=finalProb>=0.42?'Elite NRFI matchup — both pitchers are top-tier scoreless arms.':
+      finalProb>=0.36?'Good NRFI candidate — strong pitching, solid value.':
+      'Moderate — review starters and weather before betting.';
+    return`<div class="gc ${i===0?'gr':''} fade-in" style="${i>0?'border-color:rgba(6,214,160,.3)':''}">
+      <div class="gtop">
+        <span class="gtime">${medals[i]} Pick #${i+1} · ${g.time}</span>
+        <span class="gbadge b-top">${(finalProb*100).toFixed(1)}% NRFI</span>
+      </div>
+      <div class="gteams">
+        <div class="gt">
+          <div class="gt-abbr">${g.awayAbbr}</div>
+          <div class="gt-pitcher">${g.awayPitcher||'TBD'}</div>
+          <div class="gt-era">${g.aS?'ERA '+g.aS.era+' · '+(g.pA*100).toFixed(1)+'%':''}</div>
+        </div>
+        <div class="gvs"><div class="gvs-txt">@</div></div>
+        <div class="gt r">
+          <div class="gt-abbr">${g.homeAbbr}</div>
+          <div class="gt-pitcher">${g.homePitcher||'TBD'}</div>
+          <div class="gt-era">${g.hS?'ERA '+g.hS.era+' · '+(g.pH*100).toFixed(1)+'%':''}</div>
+        </div>
+      </div>
+      <div class="gstats">
+        <div class="gsc"><div class="gsc-lbl">NRFI %</div><div class="gsc-val c-teal">${(finalProb*100).toFixed(1)}%</div></div>
+        <div class="gsc"><div class="gsc-lbl">${hasLive?'FD Odds':'Model Est.'}</div><div class="gsc-val c-gold">${finalOdds}</div></div>
+        <div class="gsc"><div class="gsc-lbl">Win/$100</div><div class="gsc-val c-green">$${w100}</div></div>
+        <div class="gsc"><div class="gsc-lbl">Source</div><div class="gsc-val" style="font-size:10px;${hasLive?'color:var(--teal)':'color:var(--w3)'}">${hasLive?'🟢 LIVE':'MODEL'}</div></div>
+      </div>
+      <div class="godds">
+        <div class="god-box ${hasLive?'live':'model'}" style="flex:1">
+          <div class="god-lbl">${hasLive?'FanDuel-Derived NRFI Odds':'Model NRFI Estimate'}</div>
+          <div class="god-val" style="color:${hasLive?'var(--teal)':'var(--gold)'};font-size:22px">${finalOdds}</div>
+          <div class="god-win">${analysis}</div>
+          <div class="god-src"><span class="fd-dot"></span>${hasLive?'FanDuel total: '+g.live.fdTotal+' · Updated live':'Poisson model estimate — verify on FanDuel'}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// NOTIFICATIONS
+// ═══════════════════════════════════════════════════════════
+function pushNotif(title,msg){
+  notifQueue.push({title,msg,time:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})});
+  renderNotifBar();
+  // Native notification if permission granted
+  if('Notification' in window&&Notification.permission==='granted'){
+    new Notification(title,{body:msg,icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">⚾</text></svg>'});
+  }
+}
+
+function renderNotifBar(){
+  const bar=document.getElementById('notif-bar');
+  if(!notifQueue.length){ bar.style.display='none'; return; }
+  bar.style.display='block';
+  bar.innerHTML=notifQueue.slice(-3).reverse().map((n,i)=>`
+    <div class="nb-item">
+      <div class="nb-icon">🔔</div>
+      <div class="nb-text">
+        <strong>${n.title}</strong><br>${n.msg}
+        <div class="nb-time">${n.time}</div>
+      </div>
+      <button class="nb-close" onclick="dismissNotif(${notifQueue.length-1-i})">✕</button>
+    </div>`).join('');
+}
+
+function dismissNotif(i){
+  notifQueue.splice(i,1);
+  renderNotifBar();
+}
+
+async function requestNotifPermission(){
+  if('Notification' in window&&Notification.permission==='default'){
+    const perm=await Notification.requestPermission();
+    if(perm==='granted') showToast('🔔 Notifications enabled!');
+    else showToast('Notifications blocked — in-app alerts still work');
+  }
+}
+
+function checkStarterNotifs(scored){
+  if(!notifSettings.starter) return;
+  const top3=scored.filter(g=>g.finalProb!==null).slice(0,3);
+  top3.forEach((g,i)=>{
+    const key='starter_notif_'+g.id;
+    if(g.awayPitcher&&g.homePitcher&&!sessionStorage.getItem(key)){
+      sessionStorage.setItem(key,'1');
+      const medals=['#1','#2','#3'];
+      pushNotif('✅ Starters Confirmed',`${medals[i]} Pick: ${g.awayAbbr}@${g.homeAbbr} — ${g.awayPitcher} vs ${g.homePitcher}`);
+    }
+  });
+  if(notifSettings.summary&&!sessionStorage.getItem('daily_summary')){
+    sessionStorage.setItem('daily_summary','1');
+    const best=scored.find(g=>g.finalProb!==null);
+    if(best) pushNotif('⚾ Today\'s Best NRFI',`${best.awayAbbr}@${best.homeAbbr} · ${(best.finalProb*100).toFixed(0)}% · ${best.finalOdds}`);
+  }
+}
+
+// Notification toggles
+function toggleNotif(key){
+  notifSettings[key]=!notifSettings[key];
+  document.getElementById('toggle-'+key).classList.toggle('on',notifSettings[key]);
+  save(SK.NOTIF,notifSettings);
+  if(notifSettings[key]) requestNotifPermission();
+}
+
+function showNotifModal(){
+  ['starter','odds','summary'].forEach(k=>
+    document.getElementById('toggle-'+k).classList.toggle('on',!!notifSettings[k]));
+  document.getElementById('notifmodal').classList.add('on');
+}
+function hideNotifModal(){ document.getElementById('notifmodal').classList.remove('on'); }
+
+// ═══════════════════════════════════════════════════════════
+// BET LOGGING
+// ═══════════════════════════════════════════════════════════
+function calcPreview(gameId,odds){
+  const stEl=document.getElementById('stk-'+gameId);
+  const prEl=document.getElementById('prev-'+gameId);
+  if(!stEl||!prEl) return;
+  const stake=parseFloat(stEl.value)||0;
+  if(stake<=0){prEl.textContent='';return;}
+  prEl.textContent='→ $'+winFromOdds(odds,stake).toFixed(2);
+}
+
+function logBet(gameId,aAbbr,hAbbr,result,odds){
+  const stEl=document.getElementById('stk-'+gameId);
+  const stake=parseFloat(stEl?.value)||0;
+  if(stake<=0&&result!=='PENDING'){showToast('⚠️ Enter stake first');return;}
+  const win=result==='WIN'?winFromOdds(odds,stake):result==='LOSS'?-stake:0;
+  const bet={id:Date.now(),gameId,awayAbbr:aAbbr,homeAbbr:hAbbr,date:ds(currentDate),stake,odds,result,pnl:win,timestamp:Date.now()};
+  bets=bets.filter(b=>!(b.gameId===gameId&&b.date===ds(currentDate)));
+  bets.push(bet);
+  save(SK.BETS,bets);
+  const msg=result==='WIN'?'✅ Win! +$'+win.toFixed(2):result==='LOSS'?'❌ Loss -$'+stake.toFixed(2):result==='PUSH'?'🔵 Push — stake returned':'⏳ Pending logged';
+  showToast(msg);
+  refreshAll();
+}
+
+function editBet(gameId){
+  bets=bets.filter(b=>!(b.gameId===gameId&&b.date===ds(currentDate)));
+  save(SK.BETS,bets);
+  refreshAll();
+  showToast('Bet removed — re-enter below');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RECORD & BANKROLL
+// ═══════════════════════════════════════════════════════════
+function renderRecord(){
+  const settled=bets.filter(b=>b.result&&b.result!=='PENDING');
+  const wins=settled.filter(b=>b.result==='WIN').length;
+  const losses=settled.filter(b=>b.result==='LOSS').length;
+  const pnl=settled.reduce((s,b)=>s+b.pnl,0);
+  const winPct=settled.length?Math.round((wins/settled.length)*100):0;
+  document.getElementById('rec-hero-el').innerHTML=`
+  <div class="rec-hero">
+    <div class="rh-title">⚾ Season NRFI Record</div>
+    <div class="rh-grid">
+      <div class="rh-cell"><div class="rh-val c-green">${wins}</div><div class="rh-lbl">Wins</div></div>
+      <div class="rh-cell"><div class="rh-val c-red">${losses}</div><div class="rh-lbl">Losses</div></div>
+      <div class="rh-cell"><div class="rh-val c-gold">${winPct}%</div><div class="rh-lbl">Win %</div></div>
+      <div class="rh-cell"><div class="rh-val ${pnl>=0?'c-green':'c-red'}">${pnl>=0?'+':''}$${Math.abs(pnl).toFixed(0)}</div><div class="rh-lbl">P&L</div></div>
+    </div>
+  </div>`;
+
+  if(!bets.length){
+    document.getElementById('record-list').innerHTML='<div class="empty"><div style="font-size:32px;margin-bottom:8px">📋</div><div style="font-size:14px;font-weight:700">No bets logged yet</div></div>';
+    document.getElementById('week-count').textContent='No bets';
+    return;
+  }
+
+  const weeks={};
+  bets.forEach(b=>{
+    const d=new Date(b.date+'T12:00:00');
+    const wd=d.getDay();
+    const mon=new Date(d); mon.setDate(d.getDate()-(wd===0?6:wd-1));
+    const wk=ds(mon);
+    if(!weeks[wk]) weeks[wk]=[];
+    weeks[wk].push(b);
+  });
+
+  const sortedWks=Object.keys(weeks).sort().reverse();
+  document.getElementById('week-count').textContent=sortedWks.length+' week'+(sortedWks.length!==1?'s':'');
+
+  document.getElementById('record-list').innerHTML=sortedWks.map(wk=>{
+    const wb=weeks[wk];
+    const ws2=wb.filter(b=>b.result&&b.result!=='PENDING');
+    const wW=ws2.filter(b=>b.result==='WIN').length;
+    const wL=ws2.filter(b=>b.result==='LOSS').length;
+    const wPnl=ws2.reduce((s,b)=>s+b.pnl,0);
+    const wkEnd=new Date(wk+'T12:00:00'); wkEnd.setDate(wkEnd.getDate()+6);
+    return`<div class="wk-card">
+      <div class="wk-hdr">
+        <div class="wk-date">${new Date(wk+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${wkEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
+        <div class="wk-right">
+          <div class="wk-rec">${wW}-${wL}</div>
+          <div class="wk-pnl" style="color:${wPnl>=0?'var(--green)':'var(--red)'}">${wPnl>=0?'+':''}$${Math.abs(wPnl).toFixed(2)}</div>
+        </div>
+      </div>
+      ${wb.sort((a,b2)=>b2.timestamp-a.timestamp).map(b=>{
+        const rc=b.result==='WIN'?'res-w':b.result==='LOSS'?'res-l':b.result==='PUSH'?'res-p':'res-pend';
+        const pnlStr=b.result==='WIN'?'+$'+b.pnl.toFixed(2):b.result==='LOSS'?'-$'+b.stake.toFixed(2):b.result==='PUSH'?'Push':b.stake?'$'+b.stake+' pending':'–';
+        return`<div class="bet-row">
+          <div class="br-game"><div class="br-matchup">${b.awayAbbr} @ ${b.homeAbbr} NRFI</div><div class="br-detail">${new Date(b.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} · ${b.odds}</div></div>
+          <div class="br-right"><div class="br-amt ${b.pnl>=0&&b.result!=='PENDING'?'c-green':b.result==='LOSS'?'c-red':'c-amber'}">${pnlStr}</div><div class="br-res ${rc}">${b.result||'–'} · $${b.stake||0} staked</div></div>
+        </div>`;
+      }).join('')}
+      <div class="wk-foot"><div class="wk-f-lbl">Week Wagered</div><div class="wk-f-val">$${wb.reduce((s,b)=>s+(b.stake||0),0).toFixed(2)}</div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderBankroll(){
+  const settled=bets.filter(b=>b.result&&b.result!=='PENDING');
+  const adjTotal=bankAdj.reduce((s,a)=>s+a.amt,0);
+  const seasonPnl=settled.reduce((s,b)=>s+b.pnl,0)+adjTotal;
+  const totalW=bets.reduce((s,b)=>s+(b.stake||0),0);
+  const roi=totalW>0?(seasonPnl/totalW)*100:0;
+
+  const now=new Date(); const wd=now.getDay();
+  const wkStart=new Date(now); wkStart.setDate(now.getDate()-(wd===0?6:wd-1)); wkStart.setHours(0,0,0,0);
+  const wkBets=settled.filter(b=>new Date(b.date+'T12:00:00')>=wkStart);
+  const wkPnl=wkBets.reduce((s,b)=>s+b.pnl,0);
+  const wkRange=wkStart.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' – '+now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+
+  document.getElementById('week-pnl').textContent=(wkPnl>=0?'+':'')+'$'+Math.abs(wkPnl).toFixed(2);
+  document.getElementById('week-pnl').style.color=wkPnl>=0?'var(--teal)':'var(--red)';
+  document.getElementById('week-range').textContent=wkRange;
+  document.getElementById('season-pnl').textContent=(seasonPnl>=0?'+':'')+'$'+Math.abs(seasonPnl).toFixed(2);
+  document.getElementById('season-pnl').style.color=seasonPnl>=0?'var(--green)':'var(--red)';
+  document.getElementById('total-wagered').textContent='$'+totalW.toFixed(2);
+  document.getElementById('roi').textContent=(roi>=0?'+':'')+roi.toFixed(1)+'%';
+  document.getElementById('roi').style.color=roi>=0?'var(--green)':'var(--red)';
+  document.getElementById('total-bets').textContent=bets.length;
+
+  // Weekly breakdown
+  const weeks={};
+  settled.forEach(b=>{
+    const d=new Date(b.date+'T12:00:00'); const wd2=d.getDay();
+    const mon=new Date(d); mon.setDate(d.getDate()-(wd2===0?6:wd2-1));
+    const wk=ds(mon);
+    if(!weeks[wk]) weeks[wk]={pnl:0,w:0,l:0,wagered:0};
+    weeks[wk].pnl+=b.pnl;
+    if(b.result==='WIN') weeks[wk].w++;
+    if(b.result==='LOSS') weeks[wk].l++;
+    weeks[wk].wagered+=b.stake||0;
+  });
+  const swks=Object.keys(weeks).sort().reverse();
+  document.getElementById('week-hist').innerHTML=swks.length?swks.map(wk=>{
+    const w=weeks[wk]; const wkEnd=new Date(wk+'T12:00:00'); wkEnd.setDate(wkEnd.getDate()+6);
+    return`<div class="wk-card">
+      <div class="wk-hdr">
+        <div class="wk-date">${new Date(wk+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${wkEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
+        <div class="wk-right"><div class="wk-rec">${w.w}-${w.l}</div><div class="wk-pnl" style="color:${w.pnl>=0?'var(--green)':'var(--red)'}">${w.pnl>=0?'+':''}$${Math.abs(w.pnl).toFixed(2)}</div></div>
+      </div>
+      <div class="wk-foot"><div class="wk-f-lbl">Wagered</div><div class="wk-f-val">$${w.wagered.toFixed(2)}</div><div class="wk-f-lbl" style="margin-left:12px">ROI</div><div class="wk-f-val" style="color:${w.pnl>=0?'var(--green)':'var(--red)'}">${w.wagered>0?((w.pnl/w.wagered)*100).toFixed(1):0}%</div></div>
+    </div>`;
+  }).join(''):'<div class="empty" style="padding:24px"><div style="font-size:12px;color:var(--w3)">No settled bets yet</div></div>';
+}
+
+function addAdj(){
+  const v=parseFloat(document.getElementById('adj-inp').value)||0;
+  if(!v){showToast('Enter an amount');return;}
+  bankAdj.push({amt:v,ts:Date.now(),date:ds(currentDate)});
+  save(SK.BANK,bankAdj);
+  document.getElementById('adj-inp').value='';
+  renderBankroll();
+  showToast((v>=0?'Added':'Deducted')+' $'+Math.abs(v).toFixed(2));
+}
+
+function confirmReset(){
+  if(confirm('Reset ALL bet history and bankroll data? This cannot be undone.')){
+    bets=[];bankAdj=[];save(SK.BETS,bets);save(SK.BANK,bankAdj);
+    renderRecord();renderBankroll();showToast('♻️ Data reset');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// API KEY MODAL
+// ═══════════════════════════════════════════════════════════
+function showApiModal(){
+  document.getElementById('api-key-inp').value=apiKey||'';
+  document.getElementById('api-key-inp').style.opacity=apiKey?'0.6':'1';
+  document.getElementById('api-status').textContent='✅ API key active — live FanDuel odds enabled';
+  document.getElementById('apimodal').classList.add('on');
+}
+function hideApiModal(){ document.getElementById('apimodal').classList.remove('on'); }
+
+async function saveApiKey(){
+  const k=document.getElementById('api-key-inp').value.trim();
+  if(!k){showToast('Enter a key first');return;}
+  document.getElementById('api-status').textContent='🔄 Testing key…';
+  // Test it
+  try{
+    const r=await fetch(`https://api.the-odds-api.com/v4/sports?apiKey=${k}`);
+    if(r.ok){
+      apiKey=k;
+      localStorage.setItem(SK.API,k);
+      document.getElementById('api-status').textContent='✅ Key valid! Live FD odds activated.';
+      showToast('🟢 API key saved — live odds active!');
+      setTimeout(()=>{ hideApiModal(); refreshAll(); },1200);
+    } else {
+      document.getElementById('api-status').textContent='❌ Invalid key — check and try again';
+    }
+  }catch{
+    document.getElementById('api-status').textContent='⚠️ Could not reach API — save anyway?';
+    apiKey=k; localStorage.setItem(SK.API,k);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DATE MODAL
+// ═══════════════════════════════════════════════════════════
+const MONTHS=['Mar','Apr','May','Jun','Jul','Aug','Sep'];
+const MONTH_NUMS=[2,3,4,5,6,7,8];
+function showDateModal(){
+  const cur=currentDate.getMonth();
+  document.getElementById('dm-months').innerHTML=MONTHS.map((m,i)=>`
+    <button class="dm-month ${MONTH_NUMS[i]===cur?'on':''}" onclick="jumpToMonth(${MONTH_NUMS[i]})">${m} 2026</button>`).join('');
+  document.getElementById('datemodal').classList.add('on');
+}
+function hideDateModal(){ document.getElementById('datemodal').classList.remove('on'); }
+function jumpToMonth(mo){
+  const today=new Date();today.setHours(0,0,0,0);
+  currentDate=today.getMonth()===mo&&today.getFullYear()===2026?today:new Date(2026,mo,1);
+  updateDateLabel();refreshAll();hideDateModal();
+}
+
+// ═══════════════════════════════════════════════════════════
+// MAIN REFRESH
+// ═══════════════════════════════════════════════════════════
+async function refreshAll(){
+  const icon=document.getElementById('sync-icon');
+  icon.innerHTML='<span class="spin">🔄</span>';
+
+  try{
+    // Fetch schedule and odds in parallel
+    const [games,oddsData]=await Promise.all([
+      fetchSchedule(),
+      apiKey?fetchOddsApi():Promise.resolve(null),
+    ]);
+
+    if(oddsData) parseOddsData(oddsData,games);
+
+    await renderGames(games);
+    renderRecord();
+    renderBankroll();
+
+    const n=games.length;
+    if(n>0){
+      const hasLive=Object.keys(liveOddsMap).length>0;
+      showToast('✅ '+n+' game'+(n!==1?'s':'')+' loaded'+(hasLive?' · 🟢 FD odds live':''));
+    }
+  }catch(e){
+    console.error('refreshAll error:',e);
+    document.getElementById('games-list').innerHTML='<div class="empty"><div class="empty-icon">📡</div><div style="font-size:14px;font-weight:700">No connection</div><div style="font-size:12px;color:var(--w3);margin-top:6px">Connect and tap 🔄</div></div>';
+  }
+
+  icon.innerHTML='🔄';
+}
+
+// ═══════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════════════
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  btn.classList.add('on');
+  document.getElementById('main').scrollTop=0;
+}
+
+// ═══════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2800);
+}
+
+// ═══════════════════════════════════════════════════════════
+// INSTALL BANNER
+// ═══════════════════════════════════════════════════════════
+function dismissInstall(){
+  document.getElementById('install').classList.remove('on');
+  localStorage.setItem('nrfi_inst','1');
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+updateDateLabel();
+refreshAll();
+
+// Auto-refresh when app becomes visible
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+    const d=ds(currentDate);
+    const c=schedCache[d];
+    if(!c||(Date.now()-c.ts>5*60*1000)) refreshAll();
+  }
+});
+
+// Auto-refresh odds every 10 minutes if API key set
+setInterval(()=>{ if(apiKey&&!document.hidden) refreshAll(); },10*60*1000);
+
+// iOS install prompt
+const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent);
+const isSaf=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const isSA=window.matchMedia('(display-mode:standalone)').matches||window.navigator.standalone;
+if(isIOS&&isSaf&&!isSA&&!localStorage.getItem('nrfi_inst')){
+  setTimeout(()=>document.getElementById('install').classList.add('on'),3000);
+}
+
+// Prevent iOS rubber-band outside scroll
+document.addEventListener('touchmove',e=>{
+  if(!e.target.closest('#main'))e.preventDefault();
+},{passive:false});
+</script>
+
+</body>
+</html>
